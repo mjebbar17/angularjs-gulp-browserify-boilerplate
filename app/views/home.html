@@ -1,10 +1,49 @@
-<h1 class="heading -large">{{ home.title | ExampleFilter }}</h1>
+<div id="container">
 
-<h3 class="heading -medium">Here is a fancy number served up courtesy of Angular: <span class="number-example">{{ home.number }}</span></h3>
+  <div id="header">
+    <div class="title">Find Gists By User</div>
+    <div id="search-holder">
+      <input id="search-box" type="text" ng-model="home.username" placeholder="Enter username..."/>
+      <button id="search-btn" ng-click="home.getGistsForUser()">Go</button>
+    </div>
+  </div>
 
-<img src="images/angular.png" height="100" />
-<img src="images/gulp.png" height="100" />
-<img src="images/browserify.png" height="100" />
+  <div class="row">
 
-<hr/>
-<div example-directive title="WOW!" click-message="You clicked me!">Directive is not loaded.</div>
+    <div id="left-side">
+      <div class="gist" ng-repeat="gist in home.gists track by $index" ng-click="home.selectGist($index)">
+        {{$index}}
+      </div>
+    </div>
+
+    <div id="right-side">
+
+      <div class="files-section" ng-if="home.selectedGist">
+        <div class="section-title">files</div>
+
+        <div class="file-holder" ng-repeat="file in home.selectedGist.files track by $index">
+
+
+          <img ng-src="http://darvin.github.io/mimetype-icon/Icons/Icons/32_{{file.type.replace('/','-')}}.png"
+               err-src="http://files.softicons.com/download/system-icons/human-o2-icons-by-oliver-scholtz/png/32x32/mimetypes/unknown.png"
+               class="file-type-img"
+               alt=""/>
+
+          <div class="file-title">{{file.filename}}</div>
+        </div>
+
+      </div>
+
+      <div id="fork-section" ng-if="home.selectedGistForks.length">
+        <div class="section-title">forks</div>
+
+        <div class="fork-holder" ng-repeat="fork in home.selectedGistForks | limitTo: 3 track by $index ">
+          <img class="avatar-image" ng-src="{{fork.owner.avatar_url}}" alt=""/>
+
+          <div class="forker-username">{{fork.owner.login}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

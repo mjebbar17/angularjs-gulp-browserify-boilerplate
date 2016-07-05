@@ -1,6 +1,5 @@
 const AppSettings = {
-  appTitle: 'Example Application',
-  apiUrl: '/api/v1'
+  apiUrl: 'https://api.github.com/'
 };
 
 export default AppSettings;
